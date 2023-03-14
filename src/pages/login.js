@@ -36,11 +36,13 @@ const LoginPage = () => {
       <div className="w-[350px] p-4 bg-slate-100">
         <form onSubmit={handleSubmit} className="w-full space-y-2">
           <Input
+            type="email"
             label="Email"
             value={email}
             onChange={(evt) => setEmail(evt.target.value)}
           />
           <Input
+            type="password"
             label="Password"
             value={password}
             onChange={(evt) => setPassword(evt.target.value)}

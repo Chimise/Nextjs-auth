@@ -1,11 +1,8 @@
-import { users, secret } from "@/utils";
 import jwt from 'jsonwebtoken';
-import {promisify} from 'node:util'
-
-const verify = promisify(jwt.verify).bind(jwt);
+import { users, jwtSecret } from "@/utils";
 
 
-const handler = async (req, res) => {
+export default async function handler(req, res) {
     const auth = req.headers['authorization'];
     switch(req.method) {
         case 'GET':
@@ -14,7 +11,7 @@ const handler = async (req, res) => {
             }
             const token = auth.split(' ').slice(-1)[0];
             try {
-                const data = await verify(token, secret);
+                const data = jwt.verify(token, jwtSecret);
                 const user = users.find(user => user.id === data.id);
                 if(!user) {
                     throw new Error();
@@ -29,5 +26,3 @@ const handler = async (req, res) => {
 
     }
 }
-
-export default handler;

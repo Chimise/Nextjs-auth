@@ -1,9 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import {users, secret} from '@/utils';
-import {promisify} from 'node:util';
+import {users, jwtSecret} from '@/utils';
 import jwt from 'jsonwebtoken';
-
-const sign = promisify(jwt.sign).bind(jwt);
 
 export default async function handler(req, res) {
   const {email, password} = req.body;
@@ -19,7 +16,7 @@ export default async function handler(req, res) {
       if(!user) {
         return res.status(401).json({message: 'Invalid Credentials'});
       }
-      const token = await sign({id: user.id}, secret);
+      const token = jwt.sign({id: user.id}, jwtSecret);
       res.json({user, token});
       break;
     default:

@@ -3,5 +3,5 @@ export const users = [
   { id: 2, name: 'Mary Doe', email: "marydoe@gmail.com", password: "marypassword" },
 ];
 
-export const secret = 'mySecret';
+export const jwtSecret = 'mySecret';
 

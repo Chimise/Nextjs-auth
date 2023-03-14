@@ -42,6 +42,7 @@ export const AuthContextProvider = ({children}) => {
             payload: responseData
         });
     }, [dispatch]);
+    
 
     const init = useCallback(async () => {
         const token = localStorage.getItem('token');
@@ -50,6 +51,7 @@ export const AuthContextProvider = ({children}) => {
                 type: 'LOGIN_ERROR',
                 payload: 'User not authenticated'
             })
+            return;
         }
         try {
             const user = await request('/api/me', {
@@ -71,6 +73,7 @@ export const AuthContextProvider = ({children}) => {
             })
         }   
     }, [dispatch]);
+    
 
     const logout = useCallback(async () => {
         await push('/login');
